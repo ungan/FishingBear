@@ -11,7 +11,7 @@ public class Character_Fishing : MonoBehaviour
     float time;         // 시간 
 
     float ani_time_idle = 1.0f;
-    float ani_time_fishing = 1.5f;
+    public float ani_time_fishing = 1.5f;
 
     bool isani = false;
     bool isidle = false;
@@ -24,65 +24,52 @@ public class Character_Fishing : MonoBehaviour
         money_text.text = "0";
         isidle = true;
         //StartCoroutine(idle());
+        StartCoroutine(ani2());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        money_timer();
-        
+        //StartCoroutine(ani2());
+        //money_timer();
+
     }
 
     private void FixedUpdate()
     {
-        StartCoroutine(ani());
-    }
-
-    void money_timer()      // 돈 버는 함수
-    {
-        Debug.Log("money_timer");
-        time += Time.deltaTime;
-        if(time >= 3.0)
-        {
-            isfishing = true;
-            animator.Play("fishing");
-            Debug.Log("money_timer up!");
-            time = 0;
-            money_fish++;
-            money_text.text = money_fish.ToString();
-        }
-
-    }
-
-    IEnumerator ani()
-    {
-        if(isani == false)
+        if (isani == false)
         {
             isani = true;
-            Debug.Log("코루틴 도는 중");
-            if (isidle == true)
-                animator.Play("idle");
-
-            if (isfishing == true)
-            {
-                Debug.Log("고기 잡는 중");
-                animator.Play("fishing");
-                yield return new WaitForSeconds(ani_time_fishing);
-                isidle = true;
-                isfishing = false;
-            }
+            //StartCoroutine(ani2());
+            isani = false;
         }
-
-        isani = false;
-        yield return null;
     }
 
-    IEnumerator timer_ani(float f)
+    IEnumerator ani2()
     {
 
-        yield return new WaitForSeconds(f);
+        if (isidle == true)
+        {
+            Debug.Log("idle");
+            animator.SetBool("isfishing", false);
+            yield return new WaitForSeconds(3f);
+            isidle = false;
+        }
+        animator.Play("idle");
 
+        if (isidle == false)
+        {
+            Debug.Log("fishing");
+            animator.SetBool("isfishing", true);
+            animator.Play("fishing");
+            yield return new WaitForSeconds(ani_time_fishing);
+            Debug.Log("fishing yield return");
+            money_fish++;
+            money_text.text = money_fish.ToString();
+            isidle = true;
+        }
+        StartCoroutine(ani2());
         yield return null;
     }
+
 }

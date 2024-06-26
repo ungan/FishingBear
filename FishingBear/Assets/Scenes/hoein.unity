@@ -469,6 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 197287767}
   money_text: {fileID: 985509614}
+  ani_time_fishing: 1
 --- !u!4 &197287769
 Transform:
   m_ObjectHideFlags: 0
