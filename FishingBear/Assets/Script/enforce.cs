@@ -7,6 +7,8 @@ public class enforce : MonoBehaviour
 {
     public Button enforce_price;        // 강화 버튼 눌렀을때
 
+    public float enforce_f;
+
     // Start is called before the first frame update
     void Start()
     {
