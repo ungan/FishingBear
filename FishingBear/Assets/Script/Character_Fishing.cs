@@ -6,8 +6,10 @@ using TMPro;
 public class Character_Fishing : MonoBehaviour
 {
     public Animator animator;
-    public TMP_Text money_text;     // 향후 업데이트 되는 text 따로 관리 할거면 분리 할것
-    int money_fish = 0;         // 향후 DB에서 플레이어 저장된 돈 값 불러오게 할것
+    public GameObject fishing_ui;   // 잡았을 때 뜨는 것
+    public data_manager Data_manager;
+
+    //int money_fish = 0;         // 향후 DB에서 플레이어 저장된 돈 값 불러오게 할것
     float time;         // 시간 
 
     float ani_time_idle = 1.0f;
@@ -21,7 +23,8 @@ public class Character_Fishing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        money_text.text = "0";
+        load_data();
+        
         isidle = true;
         //StartCoroutine(idle());
         StartCoroutine(ani2());
@@ -45,6 +48,10 @@ public class Character_Fishing : MonoBehaviour
         }
     }
 
+    void load_data()
+    {
+
+    }
     IEnumerator ani2()
     {
 
@@ -64,8 +71,11 @@ public class Character_Fishing : MonoBehaviour
             animator.Play("fishing");
             yield return new WaitForSeconds(ani_time_fishing);
             Debug.Log("fishing yield return");
-            money_fish++;
-            money_text.text = money_fish.ToString();
+            Data_manager.money = Data_manager.money + Data_manager.earned_at_once;
+            fishing_ui.SetActive(true);                                     // 화면에 띄워주는 ui 켜주기
+            ui_fishing_it f = fishing_ui.GetComponent<ui_fishing_it>();     // 화면에 띄워주는 ui 불러오기
+            f.fising_text.text = "1";                     // 화면에 띄워주는 ui text 수정 // 나중에 한번에 얼마가 벌리는지로 수정 해줄 것
+
             isidle = true;
         }
         StartCoroutine(ani2());
