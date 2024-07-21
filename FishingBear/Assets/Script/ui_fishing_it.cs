@@ -9,6 +9,7 @@ public class ui_fishing_it : MonoBehaviour
     public RectTransform ui_fishing;
     public Image fishing_image;
     public TMP_Text fising_text;
+    public data_manager Data_manager;
 
     Vector2 first_position;
     Color fishing_image_color;
@@ -37,7 +38,9 @@ public class ui_fishing_it : MonoBehaviour
 
         ui_fishing.anchoredPosition = new Vector2(ui_fishing.anchoredPosition.x, ui_fishing.anchoredPosition.y + Time.deltaTime * 30.0f);
 
-        if(fishing_text_color.a <= 0)
+        fising_text.text = Data_manager.earned_at_once.ToString();
+
+        if (fishing_text_color.a <= 0)
         {
             gameObject.SetActive(false);
         }
