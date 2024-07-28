@@ -14,8 +14,8 @@ public class boat : MonoBehaviour
     void Start()
     {
         Transform obj_position = obj_boat.GetComponent<Transform>();
-        up_position = new Vector3(obj_position.position.x, obj_position.position.y + 0.5f, obj_position.position.z);
-        down_position = new Vector3(obj_position.position.x, obj_position.position.y - 0.5f, obj_position.position.z);
+        up_position = new Vector3(obj_position.position.x, obj_position.position.y + 0.1f, obj_position.position.z);
+        down_position = new Vector3(obj_position.position.x, obj_position.position.y - 0.1f, obj_position.position.z);
 
     }
 
@@ -24,18 +24,20 @@ public class boat : MonoBehaviour
     {
         if(isup == true)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + Time.deltaTime, gameObject.transform.position.z);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + Time.deltaTime*0.1f, gameObject.transform.position.z);
 
-            if(gameObject.transform.position.y - up_position.y <= 0.01)
+            //if(gameObject.transform.position.y - up_position.y <= 0.01)
+            if(onsub(gameObject.transform.position.y,up_position.y) <= 0.01)
             {
                 isup = false;
             }
         }
         else if(isup == false)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - Time.deltaTime, gameObject.transform.position.z);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - Time.deltaTime * 0.1f, gameObject.transform.position.z);
 
-            if (gameObject.transform.position.y - down_position.y <= 0.01)
+            //if (gameObject.transform.position.y - down_position.y <= 0.01)
+            if (onsub(gameObject.transform.position.y, down_position.y) <= 0.01)
             {
                 isup = true;
             }
