@@ -13,11 +13,13 @@ public class Character_Fishing : MonoBehaviour
     float time;         // 시간 
 
     float ani_time_idle = 1.0f;
+    float spacial_probability = 0.1f;
     public float ani_time_fishing = 1.5f;
 
     bool isani = false;
     bool isidle = false;
     bool isfishing = false;
+
 
 
     // Start is called before the first frame update
@@ -68,8 +70,9 @@ public class Character_Fishing : MonoBehaviour
         {
             Debug.Log("fishing");
             animator.SetBool("isfishing", true);
-            animator.Play("fishing");
-            yield return new WaitForSeconds(ani_time_fishing);
+            animator.Play("fishing");                               // 고기 잡는 애니메이션 처리중
+            yield return new WaitForSeconds(ani_time_fishing);      
+                                                                    // 고기 잡는 애니메이션 처리 이후
             Debug.Log("fishing yield return");
             Data_manager.money = Data_manager.money + Data_manager.earned_at_once;
             fishing_ui.SetActive(true);                                     // 화면에 띄워주는 ui 켜주기
@@ -80,6 +83,17 @@ public class Character_Fishing : MonoBehaviour
         }
         StartCoroutine(ani2());
         yield return null;
+    }
+
+    void money_calculate()                                      // 크리티컬 확률(스페셜 물고기가 잡힐 확률) 정산 및 이외 각종 유물 같이 보너스 관련 처리 해줄 함수
+    {
+        float random = Random.Range(0.0f, 1.0f);                // 확률 값 불러오기
+        //special = 0.1;
+        
+        if(spacial_probability < random)
+        {
+
+        }
     }
 
 }
